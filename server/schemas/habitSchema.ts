@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, } from 'mongoose';
 
 export interface IHabit extends Document {
     goal: string;
@@ -37,5 +37,6 @@ const habitSchema = new Schema<IHabit>(
     
 }, { timestamps: true });
 
-const Habit: Model<IHabit> = mongoose.model<IHabit>('Habit', habitSchema);
+const Habit = mongoose.models.Habit || mongoose.model<IHabit>("Habit", habitSchema);
+
 export default Habit;

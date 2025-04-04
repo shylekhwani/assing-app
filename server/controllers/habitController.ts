@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createHabitService } from "@/server/services/habitService";
+import { createHabitService, getAllHabitsService } from "@/server/services/habitService";
 
 export const createHabitController = async function (req: Request) {
   try {
@@ -10,4 +10,14 @@ export const createHabitController = async function (req: Request) {
     console.log(error);
     return NextResponse.json({ message: "Error creating habit" }, { status: 500 });
   }
+};
+
+export const getAllHabitsController = async function () {
+    try {
+      const response = await getAllHabitsService();
+      return NextResponse.json(response, { status: 200 });
+    } catch (error) {
+      console.log(error);
+      return NextResponse.json({ message: "Error getting all habits" }, { status: 500 });
+    }
 };

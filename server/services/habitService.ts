@@ -10,3 +10,13 @@ export const createHabitService = async function (habitData: IHabit) {
     throw new Error("Error creating habit");
   }
 };
+
+export const getAllHabitsService = async function () {
+  try {
+    const response = await habitRepository.getAll();
+    return response;
+  } catch (error) {
+    console.log(error)
+    throw new Error("Error getting all habit");
+  }
+};

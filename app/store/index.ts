@@ -1,11 +1,21 @@
 import { create } from "zustand";
 import axios from "axios";
+
+interface Habit {
+  _id: string;
+  goal: string;
+  habit: string;
+  habitType: string;
+  period: string;
+  checked: boolean;
+}
+
 interface States {
   goal: string;
   habit: string;
   habitType: string;
   period: string;
-  habits: string[];
+  habits: Habit[];
   checkedHabits: Record<string, boolean>; // Tracks checked habits as its inside an object
 };
 
@@ -14,8 +24,9 @@ interface Actions {
  setHabit: (newHabit: string) => void;
  setHabitType: (newHabitType: string) => void;
  setPeriod: (newPeriod: string) => void;
- addHabits: () => void;
+ addHabits: () => Promise<void>;
  toggleHabitCheck: (habit: string) => void;
+ getAllHabits: () => Promise<void>;
 };
 
 export const useCreateHabitsStore = create<States & Actions>(function (set, get) {
@@ -51,19 +62,19 @@ export const useCreateHabitsStore = create<States & Actions>(function (set, get)
 
           if (habit.trim() !== "") {
             try {
-              await axios.post("/api/habits", { // this will Save habit 
+             const response = await axios.post("/api/habits", { // this will Save habit 
                 goal,
                 habit,
                 habitType,
                 period,
                 checked: false,
               });
-        
-              // Update local state after successful POST
+             const newHabit = response.data;
               set({
-                habits: [...habits, habit],
+                habits: [...habits, newHabit],
                 checkedHabits: { ...checkedHabits, [habit]: false },
-                habit: "", // Clear input
+                habit: "",
+                goal: "",
               });
             } catch (error) {
               console.error("Failed to save habit:", error);
@@ -71,15 +82,23 @@ export const useCreateHabitsStore = create<States & Actions>(function (set, get)
           }
         },
 
-        toggleHabitCheck: function (habit) {
-            set(function (state) {
-              return {
-                checkedHabits: {
-                  ...state.checkedHabits, // Copy the current habits state
-                  [habit]: !state.checkedHabits[habit], // Toggle the selected habit
-                },
-              };
-            });
+        toggleHabitCheck: function (habitId: string) {
+          set((state) => ({
+            checkedHabits: {
+              ...state.checkedHabits,
+              [habitId]: !state.checkedHabits[habitId],
+            },
+          }));
         },
+        
+        getAllHabits: async function () {
+          try {
+            const response = await axios.get("/api/habits");
+            console.log(response);
+            set({ habits: response.data })
+          } catch (error) {
+            console.error("Failed to fetch habits:", error);
+          }
+        }
     };
 });

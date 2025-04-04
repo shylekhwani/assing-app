@@ -10,7 +10,7 @@ export const Main = function () {
       <div className="p-6 flex flex-col items-center justify-center min-h-screen">
         <p className=" text-slate-600 dark:text-white">Sun 1 March 2022</p>
         <span className="text-lg font-bold text-slate-600 dark:text-white">
-          Hello, <span className="text-orange-500">Susy</span>
+          Hello, <span className="text-orange-500">Abhijith</span>
           </span>
   
   

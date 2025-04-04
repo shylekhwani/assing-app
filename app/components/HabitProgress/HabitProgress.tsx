@@ -6,7 +6,7 @@ export const HabitProgress = function() {
     const {habits, checkedHabits} = useCreateHabitsStore();
 
     const completedCount = Object.values(checkedHabits).filter(Boolean).length;
-    const completedPercentage = habits.length > 0 ? (completedCount / habits.length) * 100 : 0;
+    const completedPercentage = habits?.length > 0 ? (completedCount / habits?.length) * 100 : 0;
 
   return (
     <>
@@ -19,7 +19,7 @@ export const HabitProgress = function() {
 
                 {/* Right Side: Habit Completion Info */}
                 <div className="ml-6">
-                    <h2 className="text-2xl font-semibold text-white sm:text-xl">{completedCount}/{habits.length} Habits</h2>
+                    <h2 className="text-2xl font-semibold text-white sm:text-xl">{completedCount}/{habits?.length} Habits</h2>
                     <p className="text-white text-lg sm:text-base">Completed Today!</p>
                 </div>
             </div>
