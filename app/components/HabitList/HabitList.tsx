@@ -1,7 +1,7 @@
 import { MoreVertical } from "lucide-react";
 import { CheckBox } from "./CheckBox";
 import { useCreateHabitsStore } from "@/app/store";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export const HabitList = function() {
 

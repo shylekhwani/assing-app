@@ -3,12 +3,12 @@
 import { Period } from "./Period";
 import { HabitType } from "./HabitsType";
 import { useCreateHabitsStore } from "@/app/store";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export const CreateNewHabit = function() {
 
-    const {goal, habit, setGoal, setHabit, habits, addHabits} = useCreateHabitsStore();
+    const {goal, habit, setGoal, setHabit, addHabits} = useCreateHabitsStore();
 
     const router = useRouter();
 
