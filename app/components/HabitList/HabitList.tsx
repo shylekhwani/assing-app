@@ -12,7 +12,7 @@ export const HabitList = function () {
 
   return (
     <div className="p-4">
-      <h3 className="text-lg font-bold mb-2 text-white">Today's Habits</h3>
+      <h3 className="text-lg font-bold mb-2 text-white">Today&apos;s Habits</h3>
 
       {habits?.length === 0 ? (
         <p className="text-white">No habits added yet.</p>
