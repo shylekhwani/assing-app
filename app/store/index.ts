@@ -1,5 +1,5 @@
 import { create } from "zustand";
-
+import axios from "axios";
 interface States {
   goal: string;
   habit: string;
@@ -46,16 +46,30 @@ export const useCreateHabitsStore = create<States & Actions>(function (set, get)
             set({period: newPeriod})
         },
 
-        addHabits: function () {
-            const { habit, habits, checkedHabits } = get(); // Get current state
-            if (habit.trim() !== "") {
-              set({
-                habits: [...habits, habit], // Add habit to list
-                checkedHabits: { ...checkedHabits, [habit]: false }, //  Initialize checkedHabits for the new habit
-                habit: "", // Clear input field
+        addHabits: async function () {
+          const { goal, habit, habits, checkedHabits, period, habitType } = get(); // Get current state
+
+          if (habit.trim() !== "") {
+            try {
+              await axios.post("/api/habits", { // this will Save habit 
+                goal,
+                habit,
+                habitType,
+                period,
+                checked: false,
               });
+        
+              // Update local state after successful POST
+              set({
+                habits: [...habits, habit],
+                checkedHabits: { ...checkedHabits, [habit]: false },
+                habit: "", // Clear input
+              });
+            } catch (error) {
+              console.error("Failed to save habit:", error);
             }
-          },
+          }
+        },
 
         toggleHabitCheck: function (habit) {
             set(function (state) {

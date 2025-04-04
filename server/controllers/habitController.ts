@@ -1,14 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { createHabitService } from "@/server/services/habitService";
 
-export default async function createHabitHandler(req: NextApiRequest, res: NextApiResponse) {
+export const createHabitController = async function (req: Request) {
   try {
-    const data = req.body;
-
+    const data = await req.json();
     const response = await createHabitService(data);
-    return res.status(201).json(response);
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
-    console.log(error)
-    return res.status(500).json({ message: "Error creating habit" });
+    console.log(error);
+    return NextResponse.json({ message: "Error creating habit" }, { status: 500 });
   }
 };

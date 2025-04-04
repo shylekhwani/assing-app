@@ -24,12 +24,10 @@ const habitSchema = new Schema<IHabit>(
 
     habitType: {
         type : String,
-        required: true
     },
 
     period: {
         type : String,
-        required: true
     },
 
     checked: { 
