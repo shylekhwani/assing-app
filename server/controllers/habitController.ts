@@ -21,3 +21,14 @@ export const getAllHabitsController = async function () {
       return NextResponse.json({ message: "Error getting all habits" }, { status: 500 });
     }
 };
+
+// export const deleteHabitByIdController = async function (req: Request) {
+//   try {
+//     const habitId = await req.json();
+//     const response = await deleteHabitByIdService(habitId);
+//     return NextResponse.json(response, { status: 200 });
+//   } catch (error) {
+//     console.log(error);
+//     return NextResponse.json({ message: "Error deleting habit" }, { status: 500 });
+//   }
+// };

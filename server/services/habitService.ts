@@ -20,3 +20,13 @@ export const getAllHabitsService = async function () {
     throw new Error("Error getting all habit");
   }
 };
+
+export const deleteHabitByIdService = async function (habitId: string) {
+  try {
+    const response = await habitRepository.delete(habitId);
+    return response;
+  } catch (error) {
+    console.log(error)
+    throw new Error("Error in deleting habit");
+  }
+};
